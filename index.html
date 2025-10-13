@@ -1,50 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Universal Social Embed Metadata (No Image) -->
-  <!-- Open Graph -->
-  <meta property="og:title" content="NE Tech">
-  <meta property="og:description" content="Ignite your Roblox journey! 🚀">
-  <meta property="og:url" content="https://netech.win">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="NE Tech">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="NE Tech">
-  <meta name="twitter:description" content="Ignite your Roblox journey! 🚀">
-  <meta name="twitter:url" content="https://netech.win">
-
-  <!-- SEO Fallback -->
-  <meta name="description" content="Ignite your Roblox journey! 🚀">
-  <link rel="canonical" href="https://netech.win">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NE Tech</title>
-</head>
+  <link rel="icon" type="image/gif" href="NETech.gif" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at 20% 20%, #021020, #000814);
+      color: #dfeaff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating particles background */
+    #particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 50%, #04142a, #010712);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(5,10,30,0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 30px rgba(0,140,255,0.25);
+      animation: fadeDown 1.3s ease forwards;
+    }
+
+    .logo {display: flex; align-items: center; gap:10px;}
+    .logo img {
+      height:55px; border-radius:10px;
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%,100% {filter: drop-shadow(0 0 6px #008cff);}
+      50% {filter: drop-shadow(0 0 18px #00aaff);}
+    }
+
+    header h1 {
+      font-size:1.8em;
+      font-weight:700;
+      background: linear-gradient(90deg,#00aaff,#0077ff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    nav a {
+      margin-left:25px;
+      text-decoration:none;
+      color:#a8caff;
+      font-weight:500;
+      transition:color .3s,text-shadow .3s;
+      position:relative;
+    }
+    nav a::after {
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:0%;
+      height:2px;
+      background:#00aaff;
+      transition:width .3s;
+    }
+    nav a:hover::after {width:100%;}
+    nav a:hover {color:#00aaff; text-shadow:0 0 10px rgba(0,170,255,0.8);}
+
+    .hero {
+      text-align:center;
+      padding:150px 20px;
+      color:#cde9ff;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero h2 {
+      font-size:3.3em;
+      margin-bottom:20px;
+      color:#00aaff;
+      text-shadow:0 0 20px rgba(0,136,255,0.7);
+      opacity:0; transform:translateY(30px);
+      animation: fadeUp 1.3s ease forwards .3s;
+    }
+
+    .hero p {
+      font-size:1.3em;
+      color:#b0d8ff;
+      opacity:0; transform:translateY(30px);
+      animation: fadeUp 1.3s ease forwards .7s;
+      margin-bottom:50px;
+    }
+
+    .hero a {
+    display: inline-block;
+    background: #0077ff;
+    color: #fff;
+    padding: 14px 38px;
+     border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+     position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0,136,255,0.6);
+    opacity: 0;
+    animation: fadeUp 1.3s ease forwards 1s;
+    text-decoration: none; /* underline removed */
+    }
+
+    .hero a::after {
+      content:'';
+      position:absolute;
+      left:50%; top:50%;
+      width:0; height:0;
+      background:rgba(255,255,255,0.3);
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      transition:width .5s ease, height .5s ease, opacity .5s ease;
+      opacity:0;
+    }
+    .hero a:hover::after {
+      width:300%; height:300%; opacity:0;
+    }
+    .hero a:hover {
+      background:#00aaff;
+      transform:scale(1.1);
+      box-shadow:0 0 30px rgba(0,170,255,0.8);
+    }
+
+    .features {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+      padding:100px 50px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .feature {
+      background:rgba(10,20,40,0.9);
+      border-radius:20px;
+      padding:50px 35px;
+      text-align:center;
+      border:1px solid rgba(0,136,255,0.2);
+      box-shadow:0 0 25px rgba(0,136,255,0.15);
+      transition:transform .4s, box-shadow .4s;
+      opacity:0; transform:translateY(40px);
+    }
+    .feature h3 {
+      color:#00aaff; font-size:1.6em; margin-bottom:15px;
+    }
+    .feature p {color:#a8caff; font-size:1.05em;}
+
+    .feature:hover {
+      transform:translateY(-10px) scale(1.03);
+      box-shadow:0 0 35px rgba(0,136,255,0.4);
+    }
+
+    footer {
+      text-align:center;
+      background:rgba(5,10,30,0.9);
+      padding:25px;
+      font-size:0.9em;
+      color:#7aaaff;
+      border-top:1px solid rgba(0,136,255,0.2);
+    }
+    footer a {color:#00aaff; text-decoration:none;}
+
+    /* Animations */
+    @keyframes fadeUp {
+      to {opacity:1; transform:translateY(0);}
+    }
+    @keyframes fadeDown {
+      from {opacity:0; transform:translateY(-40px);}
+      to {opacity:1; transform:translateY(0);}
+    }
+
+    /* Reveal on scroll */
+    .reveal {opacity:0; transform:translateY(50px); transition:all 1s ease;}
+    .reveal.active {opacity:1; transform:translateY(0);}
+  </style>
+</head>
 <body>
+  <div id="particles"></div>
+
   <header>
-    <a href="#" class="logo">NE Tech</a>
-    <nav></nav>
+    <div class="logo">
+      <img src="NETech.gif" alt="NE Tech Logo">
+      <h1>NE Tech</h1>
+    </div>
+    <nav>
+      <a href="https://netech.win/products" target="_blank">Products</a>
+      <a href="https://netech.win/services" target="_blank">Services</a>
+    </nav>
   </header>
 
-  <section class="home" style="padding: 50px; text-align: center;">
-    <div class="home-img">
-      <img src="main.png" alt="NE Tech Logo" style="max-width: 200px;">
+  <section class="hero">
+    <h2>Where Roblox Meets Innovation</h2>
+    <p>We build next-gen admin panels, powerful tech tools, and original Roblox games designed entirely in-house. Join the fun, explore the future.</p>
+    <a href="https://discord.gg/vPmjbWE6cy" target="_blank">Get Started</a>
+  </section>
+
+  <section class="features">
+    <div class="feature reveal">
+      <h3>Admin Panels</h3>
+      <p>Advanced, user-friendly admin systems that make Roblox management faster, smarter, and more powerful.</p>
     </div>
-    <div class="home-content">
-      <h1>This is, <span>NE Tech</span></h1>
-      <h3 class="typing-text">We Made <span></span></h3>
-      <p>Ignite Your Roblox Journey! 🧩</p>
-      <a href="https://discord.gg/uCDWCYwTfY" style="color: white; background-color: #5865F2; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Join Us Today!</a>
+    <div class="feature reveal">
+      <h3>Tech Products</h3>
+      <p>From scripts to pre-made systems, NE Tech delivers premium Roblox tech that promotes gameplay and creation.</p>
+    </div>
+    <div class="feature reveal">
+      <h3>Our Own Games</h3>
+      <p>We don’t just build tools, we create games. Play our unique Roblox experiences made with precision and creativity.</p>
     </div>
   </section>
+
+  <footer>
+    <p>© 2025 NE Tech. All Rights Reserved. | <a href="https://discord.gg/vPmjbWE6cy">Join Our Discord</a></p>
+  </footer>
+
+  <script>
+    /* Scroll reveal animation */
+    const reveals = document.querySelectorAll(".reveal");
+    window.addEventListener("scroll", () => {
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 100;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    });
+
+    /* Particle effect */
+    const particles = document.getElementById("particles");
+    const total = 50;
+    for (let i = 0; i < total; i++) {
+      const p = document.createElement("div");
+      p.style.position = "absolute";
+      p.style.width = "4px";
+      p.style.height = "4px";
+      p.style.borderRadius = "50%";
+      p.style.background = "rgba(0,170,255,0.8)";
+      p.style.top = Math.random() * 100 + "%";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animation = `floatParticle ${5 + Math.random() * 10}s linear infinite`;
+      particles.appendChild(p);
+    }
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes floatParticle {
+        0% {transform: translateY(0) scale(1); opacity: 0.8;}
+        50% {transform: translateY(-40px) scale(1.3); opacity: 0.5;}
+        100% {transform: translateY(0) scale(1); opacity: 0.8;}
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
