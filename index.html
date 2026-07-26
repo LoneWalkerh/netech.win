@@ -5,200 +5,309 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NE Tech</title>
   <link rel="icon" type="image/gif" href="NETech.gif" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at 20% 20%, #021020, #000814);
-      color: #dfeaff;
-      overflow-x: hidden;
-      position: relative;
+    :root{
+      --bg:#05070c;
+      --cyan:#3fc4ff;
+      --violet:#8b6bff;
+      --text:#eaf1fb;
+      --text-dim:#8ba0ba;
     }
 
-    /* Floating particles background */
-    #particles {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      background: radial-gradient(circle at 50% 50%, #04142a, #010712);
-      overflow: hidden;
+    *{margin:0; padding:0; box-sizing:border-box;}
+
+    html{ scroll-behavior:smooth; }
+    html,body{ height:100%; }
+
+    body{
+      font-family:'Poppins', sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      position:relative;
+      overflow-x:hidden;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 60px;
-      background: rgba(5,10,30,0.85);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 0 30px rgba(0,140,255,0.25);
-      animation: fadeDown 1.3s ease forwards;
+    /* ambient glow circles behind everything */
+    .glow{
+      position:fixed;
+      width:60vw;
+      height:60vw;
+      max-width:800px;
+      max-height:800px;
+      border-radius:50%;
+      filter:blur(120px);
+      pointer-events:none;
+      z-index:0;
+    }
+    .glow.a{ top:-20%; left:-15%; background:radial-gradient(circle, #4fc7ff 0%, transparent 70%); opacity:0.35; }
+    .glow.b{ bottom:-25%; right:-15%; background:radial-gradient(circle, #0c1c33 0%, transparent 70%); opacity:0.8; }
+    .glow.c{ top:35%; left:50%; width:40vw; height:40vw; background:radial-gradient(circle, #8b6bff 0%, transparent 70%); opacity:0.14; }
+
+    .glass{
+      background:rgba(255,255,255,0.04);
+      backdrop-filter:blur(18px) saturate(160%);
+      -webkit-backdrop-filter:blur(18px) saturate(160%);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.1);
     }
 
-    .logo {display: flex; align-items: center; gap:10px;}
-    .logo img {
-      height:55px; border-radius:10px;
-      animation: logoPulse 4s ease-in-out infinite;
-    }
-    @keyframes logoPulse {
-      0%,100% {filter: drop-shadow(0 0 6px #008cff);}
-      50% {filter: drop-shadow(0 0 18px #00aaff);}
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 60px;
+      border-left:none; border-right:none; border-top:none;
     }
 
-    header h1 {
-      font-size:1.8em;
+    .logo{ display:flex; align-items:center; gap:10px; }
+    .logo img{ height:38px; border-radius:9px; }
+
+    header h1{
+      font-size:1.25em;
       font-weight:700;
-      background: linear-gradient(90deg,#00aaff,#0077ff);
+      letter-spacing:0.01em;
+    }
+
+    nav{ display:flex; align-items:center; gap:6px; }
+
+    nav a{
+      text-decoration:none;
+      color:var(--text-dim);
+      font-weight:500;
+      font-size:0.92em;
+      padding:9px 16px;
+      border-radius:10px;
+      transition:color .2s ease, background .2s ease;
+    }
+    nav a:hover{ color:var(--text); background:rgba(255,255,255,0.06); }
+    nav a.cta{
+      color:var(--text);
+      border:1px solid rgba(63,196,255,0.35);
+      margin-left:6px;
+    }
+    nav a.cta:hover{ background:rgba(63,196,255,0.14); }
+
+    main{ position:relative; z-index:1; }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.78em;
+      font-weight:600;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      color:var(--cyan);
+      padding:7px 16px;
+      border-radius:999px;
+      margin-bottom:24px;
+    }
+    .eyebrow .dot{
+      width:6px; height:6px; border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 8px var(--cyan);
+    }
+
+    .hero{
+      text-align:center;
+      padding:110px 20px 80px;
+      max-width:680px;
+      margin:0 auto;
+    }
+
+    .hero h2{
+      font-size:2.7em;
+      font-weight:800;
+      line-height:1.18;
+      margin-bottom:18px;
+      letter-spacing:-0.01em;
+    }
+    .hero h2 span{
+      background:linear-gradient(90deg, var(--cyan), var(--violet));
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
 
-    nav a {
-      margin-left:25px;
+    .hero p{
+      font-size:1.05em;
+      color:var(--text-dim);
+      line-height:1.7;
+      margin-bottom:34px;
+    }
+
+    .hero-actions{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      color:var(--text);
+      padding:14px 32px;
+      border-radius:14px;
+      font-weight:600;
+      font-size:0.98em;
       text-decoration:none;
-      color:#a8caff;
-      font-weight:500;
-      transition:color .3s,text-shadow .3s;
-      position:relative;
+      transition:border-color .2s ease, transform .2s ease, background .2s ease;
     }
-    nav a::after {
-      content:'';
-      position:absolute;
-      left:0;
-      bottom:-4px;
-      width:0%;
-      height:2px;
-      background:#00aaff;
-      transition:width .3s;
-    }
-    nav a:hover::after {width:100%;}
-    nav a:hover {color:#00aaff; text-shadow:0 0 10px rgba(0,170,255,0.8);}
+    .btn:hover{ transform:translateY(-2px); }
+    .btn.primary{ border-color:rgba(63,196,255,0.4); }
+    .btn.primary:hover{ background:rgba(63,196,255,0.14); border-color:rgba(63,196,255,0.6); }
+    .btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.1); box-shadow:none; }
+    .btn.ghost:hover{ background:rgba(255,255,255,0.05); }
 
-    .hero {
+    .stats{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+      max-width:800px;
+      margin:0 auto 90px;
+      padding:0 20px;
+    }
+
+    .stat{
+      flex:1 1 160px;
+      border-radius:16px;
+      padding:20px 18px;
       text-align:center;
-      padding:150px 20px;
-      color:#cde9ff;
-      overflow:hidden;
-      position:relative;
+    }
+    .stat .num{
+      font-size:1.7em;
+      font-weight:800;
+      color:var(--text);
+    }
+    .stat .lbl{
+      font-size:0.78em;
+      color:var(--text-dim);
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      margin-top:4px;
     }
 
-    .hero h2 {
-      font-size:3.3em;
-      margin-bottom:20px;
-      color:#00aaff;
-      text-shadow:0 0 20px rgba(0,136,255,0.7);
-      opacity:0; transform:translateY(30px);
-      animation: fadeUp 1.3s ease forwards .3s;
-    }
-
-    .hero p {
-      font-size:1.3em;
-      color:#b0d8ff;
-      opacity:0; transform:translateY(30px);
-      animation: fadeUp 1.3s ease forwards .7s;
-      margin-bottom:50px;
-    }
-
-    .hero a {
-    display: inline-block;
-    background: #0077ff;
-    color: #fff;
-    padding: 14px 38px;
-     border-radius: 50px;
-    font-weight: bold;
-    font-size: 1.1em;
-     position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 25px rgba(0,136,255,0.6);
-    opacity: 0;
-    animation: fadeUp 1.3s ease forwards 1s;
-    text-decoration: none; /* underline removed */
-    }
-
-    .hero a::after {
-      content:'';
-      position:absolute;
-      left:50%; top:50%;
-      width:0; height:0;
-      background:rgba(255,255,255,0.3);
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      transition:width .5s ease, height .5s ease, opacity .5s ease;
-      opacity:0;
-    }
-    .hero a:hover::after {
-      width:300%; height:300%; opacity:0;
-    }
-    .hero a:hover {
-      background:#00aaff;
-      transform:scale(1.1);
-      box-shadow:0 0 30px rgba(0,170,255,0.8);
-    }
-
-    .features {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:40px;
-      padding:100px 50px;
-      max-width:1200px;
+    section.block{
+      max-width:1100px;
       margin:0 auto;
+      padding:0 50px 100px;
     }
-    .feature {
-      background:rgba(10,20,40,0.9);
-      border-radius:20px;
-      padding:50px 35px;
+
+    .section-head{
       text-align:center;
-      border:1px solid rgba(0,136,255,0.2);
-      box-shadow:0 0 25px rgba(0,136,255,0.15);
-      transition:transform .4s, box-shadow .4s;
-      opacity:0; transform:translateY(40px);
+      max-width:520px;
+      margin:0 auto 46px;
     }
-    .feature h3 {
-      color:#00aaff; font-size:1.6em; margin-bottom:15px;
+    .section-head h3{
+      font-size:1.9em;
+      font-weight:700;
+      margin-bottom:12px;
     }
-    .feature p {color:#a8caff; font-size:1.05em;}
+    .section-head p{
+      color:var(--text-dim);
+      font-size:0.98em;
+      line-height:1.6;
+    }
 
-    .feature:hover {
-      transform:translateY(-10px) scale(1.03);
-      box-shadow:0 0 35px rgba(0,136,255,0.4);
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
     }
 
-    footer {
+    .feature{
+      border-radius:18px;
+      padding:32px 28px;
+      transition:transform .25s ease, border-color .25s ease;
+    }
+    .feature:hover{ transform:translateY(-4px); border-color:rgba(63,196,255,0.3); }
+
+    .feature .icon{
+      width:42px; height:42px;
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(63,196,255,0.12);
+      color:var(--cyan);
+      margin-bottom:16px;
+    }
+    .feature .icon svg{ width:20px; height:20px; }
+
+    .feature h3{ font-size:1.15em; font-weight:600; margin-bottom:8px; }
+    .feature p{ color:var(--text-dim); font-size:0.93em; line-height:1.6; }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .step{
+      border-radius:18px;
+      padding:28px 24px;
+      position:relative;
+    }
+    .step .n{
+      font-family:'Poppins', sans-serif;
+      font-size:0.75em;
+      font-weight:700;
+      color:var(--cyan);
+      letter-spacing:0.08em;
+      margin-bottom:10px;
+    }
+    .step h4{ font-size:1.05em; font-weight:600; margin-bottom:8px; }
+    .step p{ color:var(--text-dim); font-size:0.9em; line-height:1.6; }
+
+    .cta-banner{
+      border-radius:24px;
+      padding:56px 40px;
       text-align:center;
-      background:rgba(5,10,30,0.9);
-      padding:25px;
-      font-size:0.9em;
-      color:#7aaaff;
-      border-top:1px solid rgba(0,136,255,0.2);
+      max-width:1100px;
+      margin:0 auto 100px;
+      position:relative;
+      z-index:1;
     }
-    footer a {color:#00aaff; text-decoration:none;}
-
-    /* Animations */
-    @keyframes fadeUp {
-      to {opacity:1; transform:translateY(0);}
+    .cta-banner h3{
+      font-size:1.8em;
+      font-weight:700;
+      margin-bottom:12px;
     }
-    @keyframes fadeDown {
-      from {opacity:0; transform:translateY(-40px);}
-      to {opacity:1; transform:translateY(0);}
+    .cta-banner p{
+      color:var(--text-dim);
+      margin-bottom:28px;
     }
 
-    /* Reveal on scroll */
-    .reveal {opacity:0; transform:translateY(50px); transition:all 1s ease;}
-    .reveal.active {opacity:1; transform:translateY(0);}
+    footer{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      padding:26px;
+      font-size:0.85em;
+      color:var(--text-dim);
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    footer a{ color:var(--cyan); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    @media (max-width:640px){
+      header{ padding:14px 20px; }
+      header h1{ display:none; }
+      section.block{ padding:0 24px 80px; }
+      .hero{ padding:90px 16px 60px; }
+      .hero h2{ font-size:2em; }
+    }
   </style>
 </head>
 <body>
-  <div id="particles"></div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+  <div class="glow c"></div>
 
-  <header>
+  <header class="glass">
     <div class="logo">
       <img src="NETech.gif" alt="NE Tech Logo">
       <h1>NE Tech</h1>
@@ -206,73 +315,91 @@
     <nav>
       <a href="https://netech.win/products" target="_blank">Products</a>
       <a href="https://netech.win/services" target="_blank">Services</a>
+      <a href="https://discord.gg/vPmjbWE6cy" target="_blank">Discord</a>
+      <a href="https://discord.gg/vPmjbWE6cy" target="_blank" class="glass cta">Get Started</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <h2>Where Roblox Meets Innovation</h2>
-    <p>We build next-gen admin panels, powerful tech tools, and original Roblox games designed entirely in-house. Join the fun, explore the future.</p>
-    <a href="https://discord.gg/vPmjbWE6cy" target="_blank">Get Started</a>
-  </section>
+  <main>
+    <section class="hero">
+      <span class="eyebrow glass"><span class="dot"></span>built in-house, run by the community</span>
+      <h2>Where Roblox Meets <span>Innovation</span></h2>
+      <p>We build next-gen admin panels, powerful tech tools, and original Roblox games designed entirely in-house. Join the fun, explore the future.</p>
+      <div class="hero-actions">
+        <a href="https://discord.gg/vPmjbWE6cy" target="_blank" class="glass btn primary">Get Started</a>
+        <a href="https://netech.win/products" target="_blank" class="glass btn ghost">View Products</a>
+      </div>
+    </section>
 
-  <section class="features">
-    <div class="feature reveal">
-      <h3>Admin Panels</h3>
-      <p>Advanced, user-friendly admin systems that make Roblox management faster, smarter, and more powerful.</p>
+    <div class="stats">
+      <div class="stat glass"><div class="num">3+</div><div class="lbl">Roblox Games</div></div>
+      <div class="stat glass"><div class="num">200+</div><div class="lbl">Community Members</div></div>
+      <div class="stat glass"><div class="num">24/7</div><div class="lbl">Active Support</div></div>
     </div>
-    <div class="feature reveal">
-      <h3>Tech Products</h3>
-      <p>From scripts to pre-made systems, NE Tech delivers premium Roblox tech that promotes gameplay and creation.</p>
-    </div>
-    <div class="feature reveal">
-      <h3>Our Own Games</h3>
-      <p>We don’t just build tools, we create games. Play our unique Roblox experiences made with precision and creativity.</p>
-    </div>
-  </section>
+
+    <section class="block">
+      <div class="section-head">
+        <h3>What we build</h3>
+        <p>Everything ships in-house — no templates, no shortcuts, just tools and games built for the Roblox community.</p>
+      </div>
+      <div class="features">
+        <div class="feature glass">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M12 18v2"/></svg>
+          </div>
+          <h3>Admin Panels</h3>
+          <p>Advanced, user-friendly admin systems that make Roblox management faster, smarter, and more powerful.</p>
+        </div>
+        <div class="feature glass">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v6l4 2M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18Z"/></svg>
+          </div>
+          <h3>Tech Products</h3>
+          <p>From scripts to pre-made systems, NE Tech delivers premium Roblox tech that promotes gameplay and creation.</p>
+        </div>
+        <div class="feature glass">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 12a6 6 0 1 1 12 0a6 6 0 0 1-12 0Z"/><path d="M3 12h2M19 12h2M12 3v2M12 19v2"/></svg>
+          </div>
+          <h3>Our Own Games</h3>
+          <p>We don't just build tools, we create games. Play our unique Roblox experiences made with precision and creativity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head">
+        <h3>How it works</h3>
+        <p>Getting started with NE Tech only takes a few minutes.</p>
+      </div>
+      <div class="steps">
+        <div class="step glass">
+          <div class="n">STEP 01</div>
+          <h4>Join the Discord</h4>
+          <p>Hop into our community server to get access to updates, support, and releases.</p>
+        </div>
+        <div class="step glass">
+          <div class="n">STEP 02</div>
+          <h4>Pick a product</h4>
+          <p>Browse our admin panels and tools, and grab the one that fits your game.</p>
+        </div>
+        <div class="step glass">
+          <div class="n">STEP 03</div>
+          <h4>Drop it in-game</h4>
+          <p>Install with a simple setup guide and you're live in minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner glass">
+      <h3>Ready to build with NE Tech?</h3>
+      <p>Join the Discord to get the latest tools, updates, and games straight from the source.</p>
+      <a href="https://discord.gg/vPmjbWE6cy" target="_blank" class="glass btn primary">Join Our Discord</a>
+    </section>
+  </main>
 
   <footer>
-    <p>© 2023 NE Tech. All Rights Reserved. | <a href="https://discord.gg/vPmjbWE6cy">Join Our Discord</a></p>
+    <p>© 2023 NE Tech. All Rights Reserved. | <a href="https://discord.gg/vPmjbWE6cy" target="_blank">Join Our Discord</a></p>
   </footer>
-
-  <script>
-    /* Scroll reveal animation */
-    const reveals = document.querySelectorAll(".reveal");
-    window.addEventListener("scroll", () => {
-      for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        const elementVisible = 100;
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        }
-      }
-    });
-
-    /* Particle effect */
-    const particles = document.getElementById("particles");
-    const total = 50;
-    for (let i = 0; i < total; i++) {
-      const p = document.createElement("div");
-      p.style.position = "absolute";
-      p.style.width = "4px";
-      p.style.height = "4px";
-      p.style.borderRadius = "50%";
-      p.style.background = "rgba(0,170,255,0.8)";
-      p.style.top = Math.random() * 100 + "%";
-      p.style.left = Math.random() * 100 + "%";
-      p.style.animation = `floatParticle ${5 + Math.random() * 10}s linear infinite`;
-      particles.appendChild(p);
-    }
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes floatParticle {
-        0% {transform: translateY(0) scale(1); opacity: 0.8;}
-        50% {transform: translateY(-40px) scale(1.3); opacity: 0.5;}
-        100% {transform: translateY(0) scale(1); opacity: 0.8;}
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
 </body>
 </html>
-
